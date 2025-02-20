@@ -1,4 +1,6 @@
-Usage: py acrosin.py [#players] [filename] [mode]
+WTFdtsf - WTF Does This Stand For?
+
+Usage: py WTFdtsf.py [#players] [filename] [mode]
 
 Mode is any of the following:
 -h, --help: this Help screen.
@@ -9,7 +11,7 @@ Mode is any of the following:
 
 Rules:
 
-Acrosin will give you 2 to 7 letters, with the possibility of one of the letters already replaced with a word. Your task is to form an explanation of what this 'acronym' stands for. Inflections of the given words are permitted. (eg. If the word given is 'Run', you can use 'Running'.)
+WTFdtsf will give you 2 to 7 letters, with the possibility of one of the letters already replaced with a word. Your task is to form an explanation of what this 'acronym' stands for. Inflections of the given words are permitted. (eg. If the word given is 'Run', you can use 'Running'.)
 
 Prepositions, articles, and punctuation do not count as words, so you can use them as much or as little as you want.
 
