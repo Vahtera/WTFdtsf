@@ -16,6 +16,9 @@ Prepositions, articles, and punctuation do not count as words, so you can use th
 Examples:
 
 [T I Head T]: The Industrial Heads of Tupperware
+
 [B Belief I]: Better Belief, Incorporated
+
 [F C]       : Fundamental Coconuts
+
 [H Q O]     : Hail the Queen of Oranges
