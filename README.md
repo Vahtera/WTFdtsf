@@ -7,7 +7,7 @@ Mode is any of the following:
 -r, --rules: Display rules.
 -f, --finnish: Finnish mode.
 
-'filename' must point to an existing file with list of words Acrosin can use. Acrosin will default to the current directory for path.
+'filename' must point to an existing file with list of words WTFdtsf can use. WTFdtsf will default to the current directory for path.
 
 Rules:
 
