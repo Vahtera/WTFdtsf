@@ -3,14 +3,16 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>06a6d012-5366-4cfb-b211-92b798c5dbcf</ProjectGuid>
-    <ProjectHome>.</ProjectHome>
-    <StartupFile>Acrosin.py</StartupFile>
+    <ProjectHome>
+    </ProjectHome>
+    <StartupFile>WTFdtsf.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>Acrosin</Name>
+    <Name>WTFdtsf</Name>
     <RootNamespace>Acrosin</RootNamespace>
+    <InterpreterId>Global|PythonCore|3.13</InterpreterId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,7 +23,11 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Acrosin.py" />
+    <Compile Include="WTFdtsf.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="Global|PythonCore|3.13" />
+    <InterpreterReference Include="Global|PythonCore|3.9" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
