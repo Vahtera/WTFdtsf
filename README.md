@@ -1,4 +1,4 @@
-Usage: acrosin [#players] [filename] [mode]
+Usage: py acrosin.py [#players] [filename] [mode]
 
 Mode is any of the following:
 -h, --help: this Help screen.
