@@ -1,4 +1,4 @@
-# WTFdtsf - What The Fuck Does That Stand For?
+# WTFdtsf - WTF Does That Stand For?
 # A game where you have to make up a meaning for a random acronym
 
 # Import 
