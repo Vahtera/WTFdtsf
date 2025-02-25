@@ -30,3 +30,7 @@ Examples:
 [F C]       : Fundamental Coconuts
 [H Q O]     : Hail the Queen of Oranges
 ```
+Screenshot 1:
+![Screenshot of WTFdtsf during player turn.](https://imgur.com/CaoHpoD.png)
+Screenshot 2:
+![Screenshot of WTFdtsf showing results.](https://imgur.com/HT2ViCO.png)
