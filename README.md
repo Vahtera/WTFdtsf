@@ -1,6 +1,6 @@
-```
-WTFdtsf - WTF Does This Stand For?
 
+# WTFdtsf - WTF Does This Stand For?
+```
 Usage: py WTFdtsf.py [#players] [filename] [mode]
 
 Mode is any of the following:
@@ -12,7 +12,7 @@ Mode is any of the following:
 WTFdtsf will default to the current directory for path.
 ```
 >[!NOTE]
->Requires Pyhton3
+>Requires Python3
 ```
 Rules:
 
