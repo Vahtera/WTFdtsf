@@ -16,7 +16,7 @@ WTFdtsf will default to the current directory for path.
 ```
 Rules:
 
-WTFdtsf will give you 2 to 7 letters, with the possibility of one of the letters replaced with a word.
+WTFdtsf will give you 2 to 7 letters, with the chance of one of the letters replaced with a word.
 Your task is to form an explanation of what this 'acronym' stands for.
 
 Inflections of the given words are permitted.
