@@ -16,11 +16,12 @@ WTFdtsf will default to the current directory for path.
 ```
 Rules:
 
-WTFdtsf will give you 2 to 7 letters, with the possibility of one of the letters already replaced with a word.
+WTFdtsf will give you 2 to 7 letters, with the possibility of one of the letters replaced with a word.
 Your task is to form an explanation of what this 'acronym' stands for.
 Inflections of the given words are permitted. (eg. If the word given is 'Run', you can use 'Running'.)
 
-Prepositions, articles, and punctuation do not count as words, so you can use them as much or as little as you want.
+Prepositions, articles, and punctuation do not count as words,
+so you can use them as much or as little as you want.
 
 Examples:
 
