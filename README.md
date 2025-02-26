@@ -1,5 +1,5 @@
 
-# WTFdtsf - WTF Does This Stand For?
+# WTFdtsf - WTF Does That Stand For?
 ```
 Usage: py WTFdtsf.py [#players] [filename] [mode]
 
