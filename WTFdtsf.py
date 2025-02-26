@@ -1,201 +1,246 @@
+''' Acronym Game '''
+#
 # WTFdtsf - WTF Does That Stand For?
 # A game where you have to make up a meaning for a random acronym
+#
 
-# Import 
+# Import
 import random
 import string
 import sys
-from os import system, name, path
-from libAnna.anna import openFile, clearScreen
-from colored import fore, back, style, cprint, stylize, stylize_interactive
+from os import path
+from libAnna.anna import open_file, clear_screen
 
 # Init variables
 random.seed()
-selfName = sys.argv[0]
-selfName = selfName[selfName.rfind("\\") + 1:-3].capitalize() # Program Name
-txtCopyright = "© Anna Vahtera 2021-2025" # Copyright
-txtVersion = selfName + " 2.0.3a [02/2025] — " # Version
-isDefaultFile = True
-asSpecial = random.randint(0,1) # Special Word Flag
-arguments = len(sys.argv)
-goAgain = "Y"
-wLengths = [2, 3, 4, 5, 6, 7] # Acronym Lengths
+SELF_NAME = sys.argv[0]
+SELF_NAME = SELF_NAME[SELF_NAME.rfind("\\") + 1:-3]  # Program Name
+TXT_COPYRIGHT = "© Anna Vahtera 2021-2025"  # Copyright
+TXT_VERSION = SELF_NAME + " 2.0.3a [02/2025] — "  # Version
+IS_DEFAULT_FILE = True
+AS_SPECIAL = random.randint(0, 1)  # Special Word Flag
+ARGUMENTS = len(sys.argv)
+GO_AGAIN = "Y"
+W_LENGTHS = [2, 3, 4, 5, 6, 7]  # Acronym Lengths
+
+# Color Definitions
+WHITE = "\033[37m"  # White Text Color
+BLUE = "\033[34m"  # Blue Text Color
+YELLOW = "\033[33m"  # Yellow Text Color
+GREEN = "\033[32m"  # Green Text Color
+RED = "\033[31m"  # Red Text Color
+CYAN = "\033[36m"  # Cyan Text Color
+PURPLE = "\033[35m"  # Purple Text Color
+BLACK = "\033[30m"  # Black Text Color
+BOLD = "\033[1m"  # Bold Text
+NOBOLD = "\033[22m"  # No Bold Text
+ENDC = "\033[0m"  # Reset Text Color
 
 # Translatable strings:
-text = {
-  "play-again?": {
-    "english": "Play another round? Y/N [Y]: ",
-    "finnish": "Pelataanko uusi kierros? K/E [K]: ",
-  },
-  "quit": {
-    "english": "Thank you for playing!",
-    "finnish": "Kiitos, että pelasit!",
-  },
-  "players": {
-    "english": " players",
-    "finnish": " pelaajaa",
-  },
-  "player": {
-    "english": " Player ",
-    "finnish": " Pelaaja ",
-  },
-  "lang": {
-    "english": "English",
-    "finnish": "Suomi",
-  },
-  "language": {
-    "english": "Language",
-    "finnish": "Kieli",
-  },
-  "wordlist": {
-    "english": "Wordlist",
-    "finnish": "Sanalista",
-  }
+TEXT = {
+    "play-again?": {
+        "english": "Play another round? Y/N [Y]: ",
+        "finnish": "Pelataanko uusi kierros? K/E [K]: ",
+    },
+    "quit": {
+        "english": "Thank you for playing!",
+        "finnish": "Kiitos, että pelasit!",
+    },
+    "players": {
+        "english": " players",
+        "finnish": " pelaajaa",
+    },
+    "player": {
+        "english": " Player ",
+        "finnish": " Pelaaja ",
+    },
+    "lang": {
+        "english": "English",
+        "finnish": "Suomi",
+    },
+    "language": {
+        "english": "Language",
+        "finnish": "Kieli",
+    },
+    "wordlist": {
+        "english": "Wordlist",
+        "finnish": "Sanalista",
+    }
 }
 
-def displayHelp(): # Display Help Screen
-    cprint("\n\nInstructions:\n", 11)
-    print("Usage: "+ selfName.casefold() + " [#players] [filename] [mode]\n")
+
+def display_help():
+    '''Display Help Screen'''
+    print(f"\n\n{GREEN}Instructions:{ENDC}\n")
+    print(f"Usage: {SELF_NAME} [#players] [filename] [mode]\n")
     print("Mode is any of the following:")
     print("-h, --help: this Help screen.")
     print("-r, --rules: Display rules.")
     print("-f, --finnish: Finnish mode.")
-    print("\n'filename' must point to an existing file with list of words " + selfName + " can use. " + selfName + " will default to the current directory for path.\n")
-    exit()
-        
-def displayRules(): # Display Rules Screen
-    cprint("\n\nRules:\n", 11)
-    print(selfName + " will give you 2 to 7 letters, with the possibility of one of the letters already replaced with a word. Your task is to form an explanation of what this 'acronym' stands for. Inflections of the given words are permitted. (eg. If the word given is 'Run', you can use 'Running'.)\n")
-    print("Prepositions, articles, and punctuation do not count as words, so you can use them as much or as little as you want.\n\n")
-    cprint("Examples:\n", 11)
-    print("[" + stylize("T I", fore('white')) + stylize(" Head ", fore('light_blue')) + stylize("T", fore('white'))+ "]: " + stylize("The Industrial Heads of Tupperware", fore('light_red')))
-    print("[" + stylize("B", fore('white')) + stylize(" Belief ", fore('light_blue')) + stylize("I", fore('white'))+ "]: " + stylize("Better Belief, Incorporated", fore('light_red')))
-    print("[" + stylize("F C", fore('white')) + "]       : " + stylize("Fundamental Coconuts", fore('light_red')))
-    print("[" + stylize("H Q O", fore('white')) + "]     : " + stylize("Hail the Queen of Oranges", fore('light_red')))
-    print();
-    exit()
+    print(f"\n'filename' must point to an existing file with list of words {SELF_NAME} can use. "
+          f"{SELF_NAME} will default to the current directory for path.\n")
+    sys.exit()
 
-def setPlayers(): # Set Number of Players
+
+def display_rules():
+    '''Display Rules Screen'''
+    print(f"\n\n{GREEN}Rules:{ENDC}\n")
+    print(f"{SELF_NAME} will give you 2 to 7 letters, with the possibility of one of the letters "
+          f"replaced with a word. Your task is to form an explanation of what this 'acronym' "
+          f"stands for. Inflections of the given words are permitted. (eg. If the word given is "
+          f"'Run', you can use 'Running'.)\n")
+    print("Prepositions, articles, and punctuation do not count as words, so you can use them as "
+          "much or as little as you want.\n\n")
+    print(f"{GREEN}Examples:{ENDC}\n")
+    print(f"{BOLD}[{WHITE}T I{BOLD}{BLUE} Head {BOLD}{WHITE}T{ENDC}]: {BOLD}{RED}The Industrial "
+          f"Heads of Tupperware{ENDC}")
+    print(f"{BOLD}[{WHITE}B{BOLD}{BLUE} Belief {BOLD}{WHITE}I{ENDC}]: {BOLD}{RED}Better Belief,"
+          f" Incorporated{ENDC}")
+    print(f"{BOLD}[{WHITE}F C{ENDC}]       : {BOLD}{RED}Fundamental Coconuts{ENDC}")
+    print(f"{BOLD}[{WHITE}H Q O{ENDC}]     : {BOLD}{RED}Hail the Queen of Oranges{ENDC}")
+    print()
+    sys.exit()
+
+
+def set_players():
+    '''Set Number of Players'''
     t = 0
-    if arguments > 1:
-        for l in range(1, arguments):
-            if (sys.argv[l].isnumeric()):
+    if ARGUMENTS > 1:
+        for l in range(1, ARGUMENTS):
+            if sys.argv[l].isnumeric():
                 t = int(sys.argv[l])
-    
-    if t > 0: # Check if Number of Players is Greater than 0 and Return that, otherwise Default to 5
-        return t
-    else:
-        return 5
 
-def setMode(): # Set Program Language Mode
+    if t > 0:  # Check if Number of Players is Greater than 0, otherwise Default to 5
+        return t
+
+    return 5
+
+
+def set_mode():
+    '''Set Program Language Mode'''
     t = "english"
-    if arguments > 1:
-        for l in range(1, arguments):
-            tStr = sys.argv[l]
-            if tStr == "-f" or tStr == "--finnish":
+    if ARGUMENTS > 1:
+        for l in range(1, ARGUMENTS):
+            t_str = sys.argv[l]
+            if t_str in ('-f', '--finnish'):
                 t = "finnish"
-            elif tStr == "-h" or tStr == "--help":
-                displayHelp()
-            elif tStr == "-r" or tStr == "--rules":
-                displayRules()
+            elif t_str in('-h', '--help'):
+                display_help()
+            elif t_str in ('-r', '--rules'):
+                display_rules()
     return t
 
-# Set Program Language Mode
-asMode = setMode()
 
-def setWordList(): # Set Word List
+# Set Program Language Mode
+AS_MODE = set_mode()
+
+
+def set_word_list():
+    '''Set Word List'''
     t = ""
-    global isDefaultFile
-    global asMode
-    
-    if arguments > 1:
-        for l in range(1, arguments):
-            checkFile = path.isfile(sys.argv[l])
-            if checkFile:
+    global IS_DEFAULT_FILE
+    # global AS_MODE
+
+    if ARGUMENTS > 1:
+        for l in range(1, ARGUMENTS):
+            check_file = path.isfile(sys.argv[l])
+            if check_file:
                 t = sys.argv[l]
 
-    if path.isfile(t): # Check if File Exists, and Set File Name. Otherwise, Default to "(language).lst"
-        isDefaultFile = False
-        varFileName = t
+    if path.isfile(t):  # Check if File Exists. Otherwise, Default to "(language).lst"
+        IS_DEFAULT_FILE = False
+        var_file_name = t
     else:
-        isDefaultFile = True
-        varFileName = asMode + ".lst" # Default File Name from Language Mode
-    
-    return varFileName
+        IS_DEFAULT_FILE = True
+        var_file_name = AS_MODE + ".lst"  # Default File Name from Language Mode
 
-fileName = setWordList()
-numPlayers = setPlayers() # Set Number of Players from Command Line (if given)
+    return var_file_name
+
+
+FILE_NAME = set_word_list()
+NUM_PLAYERS = set_players()  # Set Number of Players from Command Line (if given)
 
 # Read Word List
-asWordList = openFile(fileName)
+AS_WORD_LIST = open_file(FILE_NAME)
+
 
 # Run Game
-def gameRun():
-    asLen = random.choices(
-        wLengths, weights=(20, 80, 60, 30, 10, 5)) # Give Weights to Random Length of Acronym
-    asLength = int(asLen[0])
-    
+def game_run():
+    '''Main Game Loop'''
+    as_len = random.choices(
+        W_LENGTHS, weights=(20, 80, 60, 30, 10, 5))  # Give Weights to Random Length of Acronym
+    as_length = int(as_len[0])
+
     # Set Status Text
-    if not isDefaultFile:
-        txtStatus = text["language"][asMode] + ": " + stylize(text["lang"][asMode] + " — ", style(3)) + str(numPlayers) + stylize(text["players"][asMode], fore('dark_gray')) + " — " + stylize(text["wordlist"][asMode], fore('white')) + ": (" + stylize(fileName, fore('light_yellow')) + ")"
-    else:    
-        txtStatus = text["language"][asMode] + ": " + stylize(text["lang"][asMode] + " — ", style(3)) + str(numPlayers) + stylize(text["players"][asMode], fore('dark_gray'))
-    
-    # Set Characters per Language
-    if asMode == "finnish":
-        asChar = list("AEFGHIKLJMNOPRSTUVYÄÖ")
+    if not IS_DEFAULT_FILE:
+        txt_status = (f"{BOLD}{BLACK}{TEXT['language'][AS_MODE]}: {ENDC}{BOLD}"
+                      f"{TEXT['lang'][AS_MODE]}"
+                      f" — {NOBOLD}{BOLD}{GREEN}{NUM_PLAYERS}{ENDC}{TEXT['players'][AS_MODE]} — "
+                      f"{TEXT['wordlist'][AS_MODE]}: "
+                      f"({BOLD}{YELLOW}{FILE_NAME}{ENDC})")
     else:
-        asChar = list(string.ascii_uppercase)
+        txt_status = (f"{BOLD}{BLACK}{TEXT['language'][AS_MODE]}: {ENDC}{BOLD}"
+                      f"{TEXT['lang'][AS_MODE]} — {NOBOLD}"
+                      f"{GREEN}{BOLD}{NUM_PLAYERS}{ENDC}{TEXT['players'][AS_MODE]}")
 
-    asWords = len(asWordList) - 1 # Word List Length
-    asLocation = random.randint(1, asLength) # Location of Special Word
-    asWord = asWordList[random.randint(1,asWords)] # Special Word
-    
-    asAnswers = []
-    for l in range(numPlayers):
-        asAnswers.append("")
+    # Set Characters per Language
+    if AS_MODE == "finnish":
+        as_char = list("AEFGHIKLJMNOPRSTUVYÄÖ")
+    else:
+        as_char = list(string.ascii_uppercase)
 
-    asString = " "
-    print("\n   ", end=" "),
-    for l in range(asLength): # Generate Random Letters and Special Word (if any)
-        random.seed()
-        character = random.randint(0, (len(asChar)-1))
-        if (asSpecial == 1) and (l == asLocation):
-            asString = asString + stylize(asWord.capitalize(), fore('cyan')) + " "
-        else:
-            asString = asString + stylize(asChar[character], fore('white')) + " "
-        
-    clearScreen()
+    as_words = len(AS_WORD_LIST) - 1  # Word List Length
+    as_location = random.randint(1, as_length)  # Location of Special Word
+    as_word = AS_WORD_LIST[random.randint(1, as_words)]  # Special Word
 
-    for l in range(numPlayers): # Player Input Loop (Display Status and Acronym)
-        print("\n   ", end=" ")
-        cprint(txtStatus, 8)
-        print("\n\n   ", end=" ")
-        asAnswers[l] = input("[" + asString + "] - " + text["player"][asMode] + str(l+1) + ": ")
-        clearScreen()
-        
-    print("\n\n")
-    random.shuffle(asAnswers)
-    clearScreen()
+    as_answers = []
+    for l in range(NUM_PLAYERS):
+        as_answers.append("")
+
+    as_string = " "
+
     print("\n   ", end=" ")
-    cprint(txtStatus, 8)
-    print("\n\n   ", end=" ")
-    print("[" + asString + "]\n\n")
 
-    for word in asAnswers: # Display Player Answers
-        print("  * ", end=" "),
-        cprint(word, 9)
+    for l in range(as_length):  # Generate Random Letters and Special Word (if any)
+        random.seed()
+        character = random.randint(0, (len(as_char) - 1))
+        if AS_SPECIAL == 1 and l == as_location:
+            as_string = as_string + f"{BOLD}{BLUE}{as_word.capitalize()}{ENDC} "
+        else:
+            as_string = as_string + f"{BOLD}{WHITE}{as_char[character]}{ENDC} "
+
+    clear_screen()
+
+    for l in range(NUM_PLAYERS):  # Player Input Loop (Display Status and Acronym)
+        print("\n   ", end=" ")
+        print(f"{GREEN}{txt_status}{ENDC}")
+        print("\n\n   ", end=" ")
+        as_answers[l] = input(f"[{as_string}] - {TEXT['player'][AS_MODE]}{str(l + 1)}: ")
+        clear_screen()
+
+    print("\n\n")
+    random.shuffle(as_answers)
+    clear_screen()
+    print("\n   ", end=" ")
+    print(f"{GREEN}{txt_status}{ENDC}")
+    print("\n\n   ", end=" ")
+    print(f"[{as_string}]\n\n")
+
+    for word in as_answers:  # Display Player Answers
+        print(f"{BOLD}{BLACK}  * {ENDC}", end=" ")
+        print(f"{RED}{BOLD}{word}{ENDC}")
+
 
 # Main Loop, Loop until user quits
-while goAgain.capitalize() in ("Y", "K"):
-    gameRun()
+while GO_AGAIN.capitalize() in ("Y", "K"):
+    game_run()
     print("\n\n   ", end=" ")
-    goAgain = input(stylize_interactive(text["play-again?"][asMode], fore('light_gray'))) or "Y"
+    GO_AGAIN = input(f"{WHITE}{TEXT['play-again?'][AS_MODE]}{ENDC}") or "Y"
     print("\n\n")
-    
+
 # Version and Copyright Info
 print("\n   ", end=" ")
-cprint(text["quit"][asMode], 2)
+print(f"{GREEN}{TEXT['quit'][AS_MODE]}{ENDC}")
 print("\n   ", end=" ")
-cprint(txtVersion + txtCopyright, 175)
+print(f"{TXT_VERSION}{TXT_COPYRIGHT}{ENDC}")
 print()
