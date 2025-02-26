@@ -6,6 +6,7 @@ import random
 import string
 import sys
 from os import system, name, path
+from libAnna.anna import openFile, clearScreen
 from colored import fore, back, style, cprint, stylize, stylize_interactive
 
 # Init variables
@@ -74,9 +75,6 @@ def displayRules(): # Display Rules Screen
     print();
     exit()
 
-def clearScreen(): # Clear Screen
-    system('cls' if name == 'nt' else 'clear') # Clear Screen depending on OS
-
 def setPlayers(): # Set Number of Players
     t = 0
     if arguments > 1:
@@ -129,8 +127,7 @@ fileName = setWordList()
 numPlayers = setPlayers() # Set Number of Players from Command Line (if given)
 
 # Read Word List
-with open(fileName, "r", encoding="utf-8") as f:
-    asWordList = [line.strip() for line in f]
+asWordList = openFile(fileName)
 
 # Run Game
 def gameRun():
