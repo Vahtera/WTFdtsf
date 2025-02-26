@@ -1,0 +1,3 @@
+[submodule "libAnna"]
+	path = libAnna
+	url = https://github.com/Vahtera/libAnna
