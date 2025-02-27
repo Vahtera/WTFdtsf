@@ -104,31 +104,31 @@ def display_rules():
 
 def set_players():
     '''Set Number of Players'''
-    t = 0
+    T = 0
     if ARGUMENTS > 1:
-        for l in range(1, ARGUMENTS):
-            if sys.argv[l].isnumeric():
-                t = int(sys.argv[l])
+        for L in range(1, ARGUMENTS):
+            if sys.argv[L].isnumeric():
+                T = int(sys.argv[L])
 
-    if t > 0:  # Check if Number of Players is Greater than 0, otherwise Default to 5
-        return t
+    if T > 0:  # Check if Number of Players is Greater than 0, otherwise Default to 5
+        return T
 
     return 5
 
 
 def set_mode():
     '''Set Program Language Mode'''
-    t = "english"
+    T = "english"
     if ARGUMENTS > 1:
-        for l in range(1, ARGUMENTS):
-            t_str = sys.argv[l]
-            if t_str in ('-f', '--finnish'):
-                t = "finnish"
-            elif t_str in('-h', '--help'):
+        for L in range(1, ARGUMENTS):
+            T_STR = sys.argv[L]
+            if T_STR in ('-f', '--finnish'):
+                T = "finnish"
+            elif T_STR in('-h', '--help'):
                 display_help()
-            elif t_str in ('-r', '--rules'):
+            elif T_STR in ('-r', '--rules'):
                 display_rules()
-    return t
+    return T
 
 
 # Set Program Language Mode
@@ -137,24 +137,24 @@ AS_MODE = set_mode()
 
 def set_word_list():
     '''Set Word List'''
-    t = ""
+    T = ""
     global IS_DEFAULT_FILE
     # global AS_MODE
 
     if ARGUMENTS > 1:
-        for l in range(1, ARGUMENTS):
-            check_file = path.isfile(sys.argv[l])
-            if check_file:
-                t = sys.argv[l]
+        for L in range(1, ARGUMENTS):
+            CHECK_FILE = path.isfile(sys.argv[L])
+            if CHECK_FILE:
+                T = sys.argv[L]
 
-    if path.isfile(t):  # Check if File Exists. Otherwise, Default to "(language).lst"
+    if path.isfile(T):  # Check if File Exists. Otherwise, Default to "(language).lst"
         IS_DEFAULT_FILE = False
-        var_file_name = t
+        VAR_FILE_NAME = T
     else:
         IS_DEFAULT_FILE = True
-        var_file_name = AS_MODE + ".lst"  # Default File Name from Language Mode
+        VAR_FILE_NAME = AS_MODE + ".lst"  # Default File Name from Language Mode
 
-    return var_file_name
+    return VAR_FILE_NAME
 
 
 FILE_NAME = set_word_list()
@@ -167,68 +167,68 @@ AS_WORD_LIST = open_file(FILE_NAME)
 # Run Game
 def game_run():
     '''Main Game Loop'''
-    as_len = random.choices(
+    AS_LEN = random.choices(
         W_LENGTHS, weights=(20, 80, 60, 30, 10, 5))  # Give Weights to Random Length of Acronym
-    as_length = int(as_len[0])
+    AS_LENGTH = int(AS_LEN[0])
 
     # Set Status Text
     if not IS_DEFAULT_FILE:
-        txt_status = (f"{BOLD}{BLACK}{TEXT['language'][AS_MODE]}: {ENDC}{BOLD}"
+        TXT_STATUS = (f"{BOLD}{BLACK}{TEXT['language'][AS_MODE]}: {ENDC}{BOLD}"
                       f"{TEXT['lang'][AS_MODE]}"
                       f" — {NOBOLD}{BOLD}{GREEN}{NUM_PLAYERS}{ENDC}{TEXT['players'][AS_MODE]} — "
                       f"{TEXT['wordlist'][AS_MODE]}: "
                       f"({BOLD}{YELLOW}{FILE_NAME}{ENDC})")
     else:
-        txt_status = (f"{BOLD}{BLACK}{TEXT['language'][AS_MODE]}: {ENDC}{BOLD}"
+        TXT_STATUS = (f"{BOLD}{BLACK}{TEXT['language'][AS_MODE]}: {ENDC}{BOLD}"
                       f"{TEXT['lang'][AS_MODE]} — {NOBOLD}"
                       f"{GREEN}{BOLD}{NUM_PLAYERS}{ENDC}{TEXT['players'][AS_MODE]}")
 
     # Set Characters per Language
     if AS_MODE == "finnish":
-        as_char = list("AEFGHIKLJMNOPRSTUVYÄÖ")
+        AS_CHAR = list("AEFGHIKLJMNOPRSTUVYÄÖ")
     else:
-        as_char = list(string.ascii_uppercase)
+        AS_CHAR = list(string.ascii_uppercase)
 
-    as_words = len(AS_WORD_LIST) - 1  # Word List Length
-    as_location = random.randint(1, as_length)  # Location of Special Word
-    as_word = AS_WORD_LIST[random.randint(1, as_words)]  # Special Word
+    AS_WORDS = len(AS_WORD_LIST) - 1  # Word List Length
+    AS_LOCATION = random.randint(1, AS_LENGTH)  # Location of Special Word
+    AS_WORD = AS_WORD_LIST[random.randint(1, AS_WORDS)]  # Special Word
 
-    as_answers = []
-    for l in range(NUM_PLAYERS):
-        as_answers.append("")
+    AS_ANSWERS = []
+    for L in range(NUM_PLAYERS):
+        AS_ANSWERS.append("")
 
-    as_string = " "
+    AS_STRING = " "
 
     print("\n   ", end=" ")
 
-    for l in range(as_length):  # Generate Random Letters and Special Word (if any)
+    for L in range(AS_LENGTH):  # Generate Random Letters and Special Word (if any)
         random.seed()
-        character = random.randint(0, (len(as_char) - 1))
-        if AS_SPECIAL == 1 and l == as_location:
-            as_string = as_string + f"{BOLD}{BLUE}{as_word.capitalize()}{ENDC} "
+        CHARACTER = random.randint(0, (len(AS_CHAR) - 1))
+        if AS_SPECIAL == 1 and L == AS_LOCATION:
+            AS_STRING = AS_STRING + f"{BOLD}{BLUE}{AS_WORD.capitalize()}{ENDC} "
         else:
-            as_string = as_string + f"{BOLD}{WHITE}{as_char[character]}{ENDC} "
+            AS_STRING = AS_STRING + f"{BOLD}{WHITE}{AS_CHAR[CHARACTER]}{ENDC} "
 
     clear_screen()
 
-    for l in range(NUM_PLAYERS):  # Player Input Loop (Display Status and Acronym)
+    for L in range(NUM_PLAYERS):  # Player Input Loop (Display Status and Acronym)
         print("\n   ", end=" ")
-        print(f"{GREEN}{txt_status}{ENDC}")
+        print(f"{GREEN}{TXT_STATUS}{ENDC}")
         print("\n\n   ", end=" ")
-        as_answers[l] = input(f"[{as_string}] - {TEXT['player'][AS_MODE]}{str(l + 1)}: ")
+        AS_ANSWERS[L] = input(f"[{AS_STRING}] - {TEXT['player'][AS_MODE]}{str(L + 1)}: ")
         clear_screen()
 
     print("\n\n")
-    random.shuffle(as_answers)
+    random.shuffle(AS_ANSWERS)
     clear_screen()
     print("\n   ", end=" ")
-    print(f"{GREEN}{txt_status}{ENDC}")
+    print(f"{GREEN}{TXT_STATUS}{ENDC}")
     print("\n\n   ", end=" ")
-    print(f"[{as_string}]\n\n")
+    print(f"[{AS_STRING}]\n\n")
 
-    for word in as_answers:  # Display Player Answers
+    for WORD in AS_ANSWERS:  # Display Player Answers
         print(f"{BOLD}{BLACK}  * {ENDC}", end=" ")
-        print(f"{RED}{BOLD}{word}{ENDC}")
+        print(f"{RED}{BOLD}{WORD}{ENDC}")
 
 
 # Main Loop, Loop until user quits
