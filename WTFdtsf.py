@@ -65,25 +65,27 @@ def display_help():
     print("-h, --help: this Help screen.")
     print("-r, --rules: Display rules.")
     print("-f, --finnish: Finnish mode.")
-    print(f"\n'filename' must point to an existing file with list of words {SELF_NAME} can use. "
-          f"{SELF_NAME} will default to the current directory for path.\n")
+    print(f"\n'filename' must point to an existing file with list of words "
+          f"{SELF_NAME} can use. {SELF_NAME} will default to the current "
+          f"directory for path.\n")
     sys.exit()
 
 
 def display_rules():
     '''Display Rules Screen'''
     print(f"\n\n{GREEN}Rules:{ENDC}\n")
-    print(f"{SELF_NAME} will give you 2 to 7 letters, with the possibility of one of the letters "
-          f"replaced with a word. Your task is to form an explanation of what this 'acronym' "
-          f"stands for. Inflections of the given words are permitted. (eg. If the word given is "
-          f"'Run', you can use 'Running'.)\n")
-    print("Prepositions, articles, and punctuation do not count as words, so you can use them as "
-          "much or as little as you want.\n\n")
+    print(f"{SELF_NAME} will give you 2 to 7 letters, with the possibility of "
+          f"one of the letters replaced with a word. Your task is to form an "
+          f"explanation of what this 'acronym' stands for. Inflections of the "
+          f"given words are permitted. (eg. If the word given is 'Run', you "
+          f"can use 'Running'.)\n")
+    print("Prepositions, articles, and punctuation do not count as words, so "
+          "you can use them as much or as little as you want.\n\n")
     print(f"{GREEN}Examples:{ENDC}\n")
-    print(f"{BOLD}[{WHITE}T I{BOLD}{BLUE} Head {BOLD}{WHITE}T{ENDC}]: {BOLD}{RED}The Industrial "
-          f"Heads of Tupperware{ENDC}")
-    print(f"{BOLD}[{WHITE}B{BOLD}{BLUE} Belief {BOLD}{WHITE}I{ENDC}]: {BOLD}{RED}Better Belief,"
-          f" Incorporated{ENDC}")
+    print(f"{BOLD}[{WHITE}T I{BOLD}{BLUE} Head {BOLD}{WHITE}T{ENDC}]: {BOLD}{RED}"
+          f"The Industrial Heads of Tupperware{ENDC}")
+    print(f"{BOLD}[{WHITE}B{BOLD}{BLUE} Belief {BOLD}{WHITE}I{ENDC}]: {BOLD}{RED}"
+          f"Better Belief, Incorporated{ENDC}")
     print(f"{BOLD}[{WHITE}F C{ENDC}]       : {BOLD}{RED}Fundamental Coconuts{ENDC}")
     print(f"{BOLD}[{WHITE}H Q O{ENDC}]     : {BOLD}{RED}Hail the Queen of Oranges{ENDC}")
     print()
@@ -162,14 +164,13 @@ def game_run():
     # Set Status Text
     if not IS_DEFAULT_FILE:
         TXT_STATUS = (f"{BOLD}{BLACK}{TEXT['language'][AS_MODE]}: {ENDC}{BOLD}"
-                      f"{TEXT['lang'][AS_MODE]}"
-                      f" — {NOBOLD}{BOLD}{GREEN}{NUM_PLAYERS}{ENDC}{TEXT['players'][AS_MODE]} — "
-                      f"{TEXT['wordlist'][AS_MODE]}: "
+                      f"{TEXT['lang'][AS_MODE]} — {NOBOLD}{BOLD}{GREEN}{NUM_PLAYERS}"
+                      f"{ENDC}{TEXT['players'][AS_MODE]} — {TEXT['wordlist'][AS_MODE]}: "
                       f"({BOLD}{YELLOW}{FILE_NAME}{ENDC})")
     else:
         TXT_STATUS = (f"{BOLD}{BLACK}{TEXT['language'][AS_MODE]}: {ENDC}{BOLD}"
-                      f"{TEXT['lang'][AS_MODE]} — {NOBOLD}"
-                      f"{GREEN}{BOLD}{NUM_PLAYERS}{ENDC}{TEXT['players'][AS_MODE]}")
+                      f"{TEXT['lang'][AS_MODE]} — {NOBOLD}{GREEN}{BOLD}{NUM_PLAYERS}"
+                      f"{ENDC}{TEXT['players'][AS_MODE]}")
 
     # Set Characters per Language
     if AS_MODE == "finnish":
@@ -232,3 +233,4 @@ print(f"{GREEN}{TEXT['quit'][AS_MODE]}{ENDC}")
 print("\n   ", end=" ")
 print(f"{TXT_VERSION}{TXT_COPYRIGHT}{ENDC}")
 print()
+
