@@ -9,32 +9,20 @@ import random
 import string
 import sys
 from os import path
-from libAnna.anna import open_file, clear_screen
+from libAnna.functions import open_file, clear_screen
+from libAnna.colors import *
 
 # Init variables
 random.seed()
 SELF_NAME = sys.argv[0]
 SELF_NAME = SELF_NAME[SELF_NAME.rfind("\\") + 1:-3]  # Program Name
-TXT_COPYRIGHT = "© Anna Vahtera 2021-2025"  # Copyright
-TXT_VERSION = SELF_NAME + " 2.0.3a [02/2025] — "  # Version
+TXT_COPYRIGHT = f"{BOLD}© Anna Vahtera 2021-2025{ENDC}"  # Copyright
+TXT_VERSION = f"{RED}{SELF_NAME} 2.0.3a [02/2025] — "  # Version
 IS_DEFAULT_FILE = True
 AS_SPECIAL = random.randint(0, 1)  # Special Word Flag
 ARGUMENTS = len(sys.argv)
 GO_AGAIN = "Y"
 W_LENGTHS = [2, 3, 4, 5, 6, 7]  # Acronym Lengths
-
-# Color Definitions
-WHITE = "\033[37m"  # White Text Color
-BLUE = "\033[34m"  # Blue Text Color
-YELLOW = "\033[33m"  # Yellow Text Color
-GREEN = "\033[32m"  # Green Text Color
-RED = "\033[31m"  # Red Text Color
-CYAN = "\033[36m"  # Cyan Text Color
-PURPLE = "\033[35m"  # Purple Text Color
-BLACK = "\033[30m"  # Black Text Color
-BOLD = "\033[1m"  # Bold Text
-NOBOLD = "\033[22m"  # No Bold Text
-ENDC = "\033[0m"  # Reset Text Color
 
 # Translatable strings:
 TEXT = {
